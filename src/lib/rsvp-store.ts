@@ -75,6 +75,9 @@ export async function addRsvp(input: CreateRsvpInput): Promise<Rsvp> {
   }
 
   const note = input.note?.trim() || undefined;
+  if ((input.status === "maybe" || input.status === "no") && !note) {
+    throw new Error("Note is required for Pending or Can't make it RSVPs");
+  }
   const entry: Rsvp = {
     id: crypto.randomUUID(),
     name,

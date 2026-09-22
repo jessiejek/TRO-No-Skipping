@@ -9,6 +9,10 @@ const STATUSES: { value: RsvpStatus; label: string; hint: string }[] = [
   { value: "no", label: "Can't make it", hint: "Filing a continuance" },
 ];
 
+function noteRequiredFor(status: RsvpStatus): boolean {
+  return status === "maybe" || status === "no";
+}
+
 export function RsvpForm() {
   const [name, setName] = useState("");
   const [status, setStatus] = useState<RsvpStatus>("yes");
@@ -16,10 +20,26 @@ export function RsvpForm() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
+  const [submittedStatus, setSubmittedStatus] = useState<RsvpStatus | null>(
+    null,
+  );
+
+  const noteRequired = noteRequiredFor(status);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+
+    const trimmedNote = note.trim();
+    if (noteRequired && !trimmedNote) {
+      setError(
+        status === "maybe"
+          ? "Pending RSVPs need a note — when will you know, or what's the hold-up?"
+          : "Can't-make-it RSVPs need a note — state your best legal excuse.",
+      );
+      return;
+    }
+
     setSubmitting(true);
     try {
       const res = await fetch("/api/rsvp", {
@@ -28,7 +48,7 @@ export function RsvpForm() {
         body: JSON.stringify({
           name: name.trim(),
           status,
-          note: note.trim() || undefined,
+          note: trimmedNote || undefined,
         }),
       });
       const data = (await res.json()) as { error?: string };
@@ -36,6 +56,7 @@ export function RsvpForm() {
         setError(data.error || "Something went wrong.");
         return;
       }
+      setSubmittedStatus(status);
       setDone(true);
       setName("");
       setNote("");
@@ -48,19 +69,33 @@ export function RsvpForm() {
   }
 
   if (done) {
+    const yes = submittedStatus === "yes";
+    const maybe = submittedStatus === "maybe";
     return (
       <div
         className="rounded-2xl border border-green-300 bg-green-50 p-5 sm:p-6"
         role="status"
       >
-        <p className="text-lg font-semibold text-green-900">RSVP filed. ✅</p>
+        <p className="text-lg font-semibold text-green-900">
+          {yes
+            ? "Appearance entered. ✅"
+            : maybe
+              ? "Motion taken under advisement. ✅"
+              : "Continuance noted. ✅"}
+        </p>
         <p className="mt-2 text-sm leading-relaxed text-green-800/80">
-          Thanks — we&apos;ve logged your appearance. See you on the court (or
-          we&apos;ll accept your excuse with prejudice).
+          {yes
+            ? "Court is in session on the pickleball court. Bring your A-game, your best objections, and zero excuses."
+            : maybe
+              ? "We've logged your pending status. File an amended appearance when you know."
+              : "Your absence is on the record. We'll miss you on the docket — and accept your excuse with prejudice."}
         </p>
         <button
           type="button"
-          onClick={() => setDone(false)}
+          onClick={() => {
+            setDone(false);
+            setSubmittedStatus(null);
+          }}
           className="mt-4 min-h-12 w-full rounded-xl border border-green-400 bg-white px-4 text-base font-medium text-green-900 transition hover:bg-green-50 active:scale-[0.98] sm:w-auto sm:px-6"
         >
           Submit another
@@ -138,22 +173,46 @@ export function RsvpForm() {
         </div>
       </fieldset>
 
+      {status === "yes" ? (
+        <div
+          className="rounded-xl border border-green-400/60 bg-green-100/70 px-4 py-3 text-sm leading-relaxed text-green-950"
+          role="status"
+        >
+          <p className="font-semibold">ORDERED: Appearance on the record.</p>
+          <p className="mt-1 text-green-900/80">
+            Guest shall appear ready to serve. Contempt of court = missing the
+            party. Bring your A-game and your best objections.
+          </p>
+        </div>
+      ) : null}
+
       <div>
         <label
           htmlFor="rsvp-note"
           className="mb-2 block text-sm font-medium text-green-900"
         >
           Note{" "}
-          <span className="font-normal text-green-700/45">(optional)</span>
+          {noteRequired ? (
+            <span className="font-normal text-amber-800/80">(required)</span>
+          ) : (
+            <span className="font-normal text-green-700/45">(optional)</span>
+          )}
         </label>
         <textarea
           id="rsvp-note"
           name="note"
           rows={3}
           maxLength={280}
+          required={noteRequired}
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          placeholder="Dietary needs, plus-ones, or your best legal excuse…"
+          placeholder={
+            status === "yes"
+              ? "Plus-ones, dietary needs, or a brief opening statement…"
+              : status === "maybe"
+                ? "When will you know? State your pending motion…"
+                : "State your best legal excuse for non-appearance…"
+          }
           className="w-full resize-y rounded-xl border border-green-200 bg-green-50/50 px-4 py-3 text-base text-green-950 placeholder:text-green-700/35 outline-none transition focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-300/60"
         />
       </div>
@@ -169,7 +228,9 @@ export function RsvpForm() {
 
       <button
         type="submit"
-        disabled={submitting || !name.trim()}
+        disabled={
+          submitting || !name.trim() || (noteRequired && !note.trim())
+        }
         className="min-h-14 w-full rounded-xl bg-green-600 px-6 text-base font-bold text-white shadow-sm transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.98]"
       >
         {submitting ? "Filing…" : "File RSVP"}

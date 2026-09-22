@@ -71,11 +71,29 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const statusValue = status as RsvpStatus;
+  const noteText =
+    typeof note === "string" ? note.trim() : "";
+  if (
+    (statusValue === "maybe" || statusValue === "no") &&
+    noteText.length < 1
+  ) {
+    return NextResponse.json(
+      {
+        error:
+          statusValue === "maybe"
+            ? "A note is required for Pending RSVPs."
+            : "A note is required when you can't make it.",
+      },
+      { status: 400 },
+    );
+  }
+
   try {
     const rsvp = await addRsvp({
       name: name.trim(),
-      status: status as RsvpStatus,
-      note: typeof note === "string" ? note : undefined,
+      status: statusValue,
+      note: noteText || undefined,
     });
     return NextResponse.json({ rsvp }, { status: 201 });
   } catch (err) {
