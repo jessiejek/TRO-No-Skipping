@@ -1,4 +1,4 @@
-import { put, list } from "@vercel/blob";
+import { put, get } from "@vercel/blob";
 import { promises as fs } from "fs";
 import path from "path";
 import type { CreateRsvpInput, Rsvp } from "./types";
@@ -31,21 +31,31 @@ async function writeLocal(rsvps: Rsvp[]): Promise<void> {
 }
 
 async function readBlob(): Promise<Rsvp[]> {
-  const { blobs } = await list({ prefix: BLOB_PATHNAME });
-  const match = blobs.find((b) => b.pathname === BLOB_PATHNAME);
-  if (!match) return [];
-
-  const res = await fetch(match.url, { cache: "no-store" });
-  if (!res.ok) {
-    throw new Error(`Failed to fetch RSVP blob: ${res.status}`);
+  // Private blobs: SDK get() uses BLOB_READ_WRITE_TOKEN
+  const result = await get(BLOB_PATHNAME, {
+    access: "private",
+    useCache: false,
+  });
+  if (!result || result.statusCode !== 200 || !result.stream) {
+    return [];
   }
-  const parsed = (await res.json()) as unknown;
+
+  const chunks: Uint8Array[] = [];
+  const reader = result.stream.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (value) chunks.push(value);
+  }
+  const raw = Buffer.concat(chunks.map((c) => Buffer.from(c))).toString("utf8");
+  if (!raw.trim()) return [];
+  const parsed = JSON.parse(raw) as unknown;
   return Array.isArray(parsed) ? (parsed as Rsvp[]) : [];
 }
 
 async function writeBlob(rsvps: Rsvp[]): Promise<void> {
   await put(BLOB_PATHNAME, JSON.stringify(rsvps, null, 2), {
-    access: "public",
+    access: "private",
     addRandomSuffix: false,
     allowOverwrite: true,
     contentType: "application/json",
