@@ -15,7 +15,7 @@ function noteRequiredFor(status: RsvpStatus): boolean {
 
 export function RsvpForm() {
   const [name, setName] = useState("");
-  const [status, setStatus] = useState<RsvpStatus>("yes");
+  const [status, setStatus] = useState<RsvpStatus | null>(null);
   const [note, setNote] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -24,11 +24,16 @@ export function RsvpForm() {
     null,
   );
 
-  const noteRequired = noteRequiredFor(status);
+  const noteRequired = status ? noteRequiredFor(status) : false;
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+
+    if (!status) {
+      setError("Pick whether you'll appear — Pending, I'll appear, or Can't make it.");
+      return;
+    }
 
     const trimmedNote = note.trim();
     if (noteRequired && !trimmedNote) {
@@ -60,7 +65,7 @@ export function RsvpForm() {
       setDone(true);
       setName("");
       setNote("");
-      setStatus("yes");
+      setStatus(null);
     } catch {
       setError("Network error. Check your connection and try again.");
     } finally {
@@ -229,7 +234,10 @@ export function RsvpForm() {
       <button
         type="submit"
         disabled={
-          submitting || !name.trim() || (noteRequired && !note.trim())
+          submitting ||
+          !name.trim() ||
+          !status ||
+          (noteRequired && !note.trim())
         }
         className="min-h-14 w-full rounded-xl bg-green-600 px-6 text-base font-bold text-white shadow-sm transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.98]"
       >
