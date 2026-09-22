@@ -14,6 +14,8 @@ export const event = {
   subcopy:
     "Court is in session at the pickleball court. Appearance is mandatory—unless you file a witty excuse.",
   cta: "Submit your RSVP (no continuances)",
+  bringFood:
+    "Open kitchen clause: you're welcome to bring food to share — snacks, drinks, or whatever your crew loves.",
 } as const;
 
 export type EventConfig = typeof event;

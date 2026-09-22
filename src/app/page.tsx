@@ -54,6 +54,14 @@ export default function HomePage() {
           </dl>
         </section>
 
+        <aside
+          className="rounded-2xl border border-green-300/70 bg-green-50 px-4 py-3.5 text-sm leading-relaxed text-green-900 sm:px-5"
+          role="note"
+        >
+          <p className="font-semibold text-green-950">Potluck permitted.</p>
+          <p className="mt-1 text-green-800/85">{event.bringFood}</p>
+        </aside>
+
         <section
           aria-labelledby="rsvp-heading"
           className="rounded-2xl border border-green-200 bg-white p-4 shadow-sm sm:p-6"
