@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error:
-          "HOST_PASSWORD is not set. Add it to .env.local before using /host.",
+          "HOST_PASSWORD is not set. On Vercel: Project Settings → Environment Variables → add HOST_PASSWORD for Production, then Redeploy. Locally: add it to .env.local.",
       },
       { status: 503 },
     );
