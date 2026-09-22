@@ -78,6 +78,10 @@ export async function addRsvp(input: CreateRsvpInput): Promise<Rsvp> {
 
   if (useBlob()) {
     await writeBlob(next);
+  } else if (process.env.VERCEL) {
+    throw new Error(
+      "BLOB_READ_WRITE_TOKEN is missing. Local JSON cannot persist on Vercel.",
+    );
   } else {
     await writeLocal(next);
   }

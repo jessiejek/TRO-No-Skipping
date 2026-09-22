@@ -80,6 +80,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ rsvp }, { status: 201 });
   } catch (err) {
     console.error("RSVP save failed:", err);
+    const onVercel = Boolean(process.env.VERCEL);
+    const hasBlob = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+    if (onVercel && !hasBlob) {
+      return NextResponse.json(
+        {
+          error:
+            "Production storage is not set up. Add BLOB_READ_WRITE_TOKEN in Vercel (Storage → Blob), then redeploy.",
+        },
+        { status: 503 },
+      );
+    }
     return NextResponse.json(
       { error: "Could not save RSVP. Try again." },
       { status: 500 },
