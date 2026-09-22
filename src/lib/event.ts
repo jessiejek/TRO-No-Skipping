@@ -1,7 +1,8 @@
 export const event = {
   brandName: "TRO: No Skipping",
-  celebrant: "Rizza",
-  birthday: "October 20",
+  celebrant: "Rizza Amor L. Caguco",
+  celebrantShort: "Rizza",
+  birthday: "October 20, 1996",
   partyDate: "Saturday, October 24, 2026",
   partyTime: "4:00 PM – 7:00 PM",
   /** ISO for countdown / calendar helpers */
