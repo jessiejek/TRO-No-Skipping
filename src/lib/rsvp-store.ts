@@ -102,6 +102,25 @@ export async function addRsvp(input: CreateRsvpInput): Promise<Rsvp> {
   return entry;
 }
 
+
+export async function deleteRsvp(id: string): Promise<boolean> {
+  const existing = await getAllRsvps();
+  const next = existing.filter((r) => r.id !== id);
+  if (next.length === existing.length) return false;
+
+  if (useBlob()) {
+    await writeBlob(next);
+  } else if (process.env.VERCEL) {
+    throw new Error(
+      "BLOB_READ_WRITE_TOKEN is missing. Local JSON cannot persist on Vercel.",
+    );
+  } else {
+    await writeLocal(next);
+  }
+
+  return true;
+}
+
 export function storageMode(): "blob" | "local" {
   return useBlob() ? "blob" : "local";
 }

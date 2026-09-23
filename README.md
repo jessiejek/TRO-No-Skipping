@@ -50,6 +50,7 @@ APIs:
 
 - `POST /api/rsvp` — public; create an RSVP
 - `GET /api/rsvp` — **host only** (httpOnly cookie set via `/api/host/login`)
+- `DELETE /api/rsvp?id=` — **host only**; remove an RSVP by id
 - `POST /api/host/login` / `POST /api/host/logout` — host session
 
 ## Deploy (Vercel)

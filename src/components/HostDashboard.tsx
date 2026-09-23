@@ -44,6 +44,8 @@ export function HostDashboard() {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loggingIn, setLoggingIn] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setState({ kind: "loading" });
@@ -113,6 +115,34 @@ export function HostDashboard() {
   async function onLogout() {
     await fetch("/api/host/logout", { method: "POST" });
     setState({ kind: "need-login" });
+  }
+
+  async function onRemove(r: Rsvp) {
+    if (!window.confirm(`Remove ${r.name}?`)) return;
+    setDeleteError(null);
+    setDeletingId(r.id);
+    try {
+      const res = await fetch(`/api/rsvp?id=${encodeURIComponent(r.id)}`, {
+        method: "DELETE",
+        credentials: "same-origin",
+      });
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+      if (!res.ok) {
+        setDeleteError(data.error || "Failed to remove RSVP");
+        return;
+      }
+      setState((prev) => {
+        if (prev.kind !== "ready") return prev;
+        return {
+          ...prev,
+          rsvps: prev.rsvps.filter((x) => x.id !== r.id),
+        };
+      });
+    } catch {
+      setDeleteError("Network error removing RSVP.");
+    } finally {
+      setDeletingId(null);
+    }
   }
 
   if (state.kind === "loading") {
@@ -229,6 +259,11 @@ export function HostDashboard() {
         </p>
       ) : (
         <ul className="space-y-3">
+          {deleteError ? (
+            <p className="text-sm text-red-600" role="alert">
+              {deleteError}
+            </p>
+          ) : null}
           {state.rsvps.map((r) => (
             <li
               key={r.id}
@@ -243,7 +278,17 @@ export function HostDashboard() {
                     {formatWhen(r.createdAt)}
                   </p>
                 </div>
-                <StatusBadge status={r.status} />
+                <div className="flex items-center gap-2">
+                  <StatusBadge status={r.status} />
+                  <button
+                    type="button"
+                    onClick={() => void onRemove(r)}
+                    disabled={deletingId === r.id}
+                    className="min-h-9 rounded-lg border border-red-300 bg-white px-3 text-sm font-medium text-red-600 hover:bg-red-50 disabled:opacity-50"
+                  >
+                    {deletingId === r.id ? "Removing…" : "Remove"}
+                  </button>
+                </div>
               </div>
               {r.note ? (
                 <p className="mt-3 text-sm leading-relaxed text-green-800/80">

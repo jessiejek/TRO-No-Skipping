@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isHostAuthenticated } from "@/lib/auth";
-import { addRsvp, getAllRsvps, storageMode } from "@/lib/rsvp-store";
+import { addRsvp, deleteRsvp, getAllRsvps, storageMode } from "@/lib/rsvp-store";
 import type { RsvpStatus } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -103,6 +103,62 @@ export async function POST(request: NextRequest) {
     }
     return NextResponse.json(
       { error: "Could not save RSVP. Try again." },
+      { status: 500 },
+    );
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  const ok = await isHostAuthenticated();
+  if (!ok) {
+    return NextResponse.json(
+      { error: "Unauthorized. Host login required." },
+      { status: 401 },
+    );
+  }
+
+  let id: string | undefined = request.nextUrl.searchParams.get("id") ?? undefined;
+
+  if (!id) {
+    try {
+      const body = await request.json();
+      if (body && typeof body === "object" && "id" in body) {
+        const raw = (body as { id?: unknown }).id;
+        if (typeof raw === "string") id = raw;
+      }
+    } catch {
+      // no / invalid JSON body — fall through to validation
+    }
+  }
+
+  if (typeof id !== "string" || id.trim().length < 1) {
+    return NextResponse.json(
+      { error: "id is required (non-empty string)." },
+      { status: 400 },
+    );
+  }
+
+  try {
+    const removed = await deleteRsvp(id.trim());
+    if (!removed) {
+      return NextResponse.json({ error: "RSVP not found." }, { status: 404 });
+    }
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    console.error("RSVP delete failed:", err);
+    const onVercel = Boolean(process.env.VERCEL);
+    const hasBlob = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+    if (onVercel && !hasBlob) {
+      return NextResponse.json(
+        {
+          error:
+            "Production storage is not set up. Add BLOB_READ_WRITE_TOKEN in Vercel (Storage → Blob), then redeploy.",
+        },
+        { status: 503 },
+      );
+    }
+    return NextResponse.json(
+      { error: "Could not delete RSVP. Try again." },
       { status: 500 },
     );
   }
