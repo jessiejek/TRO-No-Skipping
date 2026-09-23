@@ -70,13 +70,13 @@ export async function getAllRsvps(): Promise<Rsvp[]> {
 export async function addRsvp(input: CreateRsvpInput): Promise<Rsvp> {
   const name = input.name.trim();
   if (!name) throw new Error("Name is required");
-  if (!["yes", "no", "maybe"].includes(input.status)) {
+  if (!["yes", "no"].includes(input.status)) {
     throw new Error("Invalid status");
   }
 
   const note = input.note?.trim() || undefined;
-  if ((input.status === "maybe" || input.status === "no") && !note) {
-    throw new Error("Note is required for Pending or Can't make it RSVPs");
+  if (input.status === "no" && !note) {
+    throw new Error("Note is required for Can't make it RSVPs");
   }
   const entry: Rsvp = {
     id: crypto.randomUUID(),

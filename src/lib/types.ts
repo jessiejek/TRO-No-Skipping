@@ -1,4 +1,4 @@
-export type RsvpStatus = "yes" | "no" | "maybe";
+export type RsvpStatus = "yes" | "no";
 
 export interface Rsvp {
   id: string;

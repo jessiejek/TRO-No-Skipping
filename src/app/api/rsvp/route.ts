@@ -6,7 +6,7 @@ import type { RsvpStatus } from "@/lib/types";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const VALID_STATUS = new Set<RsvpStatus>(["yes", "no", "maybe"]);
+const VALID_STATUS = new Set<RsvpStatus>(["yes", "no"]);
 
 export async function GET() {
   const ok = await isHostAuthenticated();
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
   }
   if (typeof status !== "string" || !VALID_STATUS.has(status as RsvpStatus)) {
     return NextResponse.json(
-      { error: "Status must be yes, no, or maybe." },
+      { error: "Status must be yes or no." },
       { status: 400 },
     );
   }
@@ -74,17 +74,9 @@ export async function POST(request: NextRequest) {
   const statusValue = status as RsvpStatus;
   const noteText =
     typeof note === "string" ? note.trim() : "";
-  if (
-    (statusValue === "maybe" || statusValue === "no") &&
-    noteText.length < 1
-  ) {
+  if (statusValue === "no" && noteText.length < 1) {
     return NextResponse.json(
-      {
-        error:
-          statusValue === "maybe"
-            ? "A note is required for Pending RSVPs."
-            : "A note is required when you can't make it.",
-      },
+      { error: "A note is required when you can't make it." },
       { status: 400 },
     );
   }

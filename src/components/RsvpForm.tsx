@@ -5,12 +5,11 @@ import type { RsvpStatus } from "@/lib/types";
 
 const STATUSES: { value: RsvpStatus; label: string; hint: string }[] = [
   { value: "yes", label: "Yes", hint: "Looking forward to it" },
-  { value: "maybe", label: "Maybe", hint: "Not sure yet" },
   { value: "no", label: "Can't make it", hint: "Won't make it" },
 ];
 
 function noteRequiredFor(status: RsvpStatus): boolean {
-  return status === "maybe" || status === "no";
+  return status === "no";
 }
 
 export function RsvpForm() {
@@ -31,17 +30,13 @@ export function RsvpForm() {
     setError(null);
 
     if (!status) {
-      setError("Please choose Yes, Maybe, or Can't make it.");
+      setError("Please choose Yes or Can't make it.");
       return;
     }
 
     const trimmedNote = note.trim();
     if (noteRequired && !trimmedNote) {
-      setError(
-        status === "maybe"
-          ? "Maybe RSVPs need a short note — when will you know?"
-          : "Please leave a short note so we know you won't make it.",
-      );
+      setError("Please leave a short note so we know you won't make it.");
       return;
     }
 
@@ -75,7 +70,6 @@ export function RsvpForm() {
 
   if (done) {
     const yes = submittedStatus === "yes";
-    const maybe = submittedStatus === "maybe";
     return (
       <div
         className="rounded-2xl border border-green-300 bg-green-50 p-5 sm:p-6"
@@ -84,16 +78,12 @@ export function RsvpForm() {
         <p className="text-lg font-semibold text-green-900">
           {yes
             ? "Thanks — you're in! ✅"
-            : maybe
-              ? "Thanks — we've got your maybe. ✅"
-              : "Thanks for letting us know. ✅"}
+            : "Thanks for letting us know. ✅"}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-green-800/80">
           {yes
             ? "See you at the party. Wear shoes you can move in if you want to play."
-            : maybe
-              ? "Update us when you know — you can submit again anytime."
-              : "We'll miss you. Hope to catch you another time."}
+            : "We'll miss you. Hope to catch you another time."}
         </p>
         <button
           type="button"
@@ -136,7 +126,7 @@ export function RsvpForm() {
         <legend className="mb-2 text-sm font-medium text-green-900">
           Will you be there?
         </legend>
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {STATUSES.map((s) => {
             const selected = status === s.value;
             return (
@@ -213,9 +203,7 @@ export function RsvpForm() {
           placeholder={
             status === "yes"
               ? "Plus-ones, dietary needs, or anything we should know…"
-              : status === "maybe"
-                ? "When will you know?"
-                : "A short note is fine…"
+              : "A short note is fine…"
           }
           className="w-full resize-y rounded-xl border border-green-200 bg-green-50/50 px-4 py-3 text-base text-green-950 placeholder:text-green-700/35 outline-none transition focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-300/60"
         />

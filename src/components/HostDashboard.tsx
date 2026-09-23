@@ -12,12 +12,10 @@ type LoadState =
 function StatusBadge({ status }: { status: RsvpStatus }) {
   const styles: Record<RsvpStatus, string> = {
     yes: "bg-green-100 text-green-800 border-green-300",
-    maybe: "bg-amber-50 text-amber-800 border-amber-200",
     no: "bg-stone-100 text-stone-600 border-stone-300",
   };
   const labels: Record<RsvpStatus, string> = {
     yes: "Yes",
-    maybe: "Maybe",
     no: "No",
   };
   return (
@@ -82,11 +80,10 @@ export function HostDashboard() {
   }, [load]);
 
   const counts = useMemo(() => {
-    if (state.kind !== "ready") return { yes: 0, maybe: 0, no: 0, total: 0 };
+    if (state.kind !== "ready") return { yes: 0, no: 0, total: 0 };
     const yes = state.rsvps.filter((r) => r.status === "yes").length;
-    const maybe = state.rsvps.filter((r) => r.status === "maybe").length;
     const no = state.rsvps.filter((r) => r.status === "no").length;
-    return { yes, maybe, no, total: state.rsvps.length };
+    return { yes, no, total: state.rsvps.length };
   }, [state]);
 
   async function onLogin(e: React.FormEvent) {
@@ -206,11 +203,10 @@ export function HostDashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-3 gap-3">
         {[
           { label: "Total", value: counts.total },
           { label: "Yes", value: counts.yes },
-          { label: "Maybe", value: counts.maybe },
           { label: "No", value: counts.no },
         ].map((c) => (
           <div

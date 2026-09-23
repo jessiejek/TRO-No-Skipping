@@ -38,7 +38,7 @@ npm run build && npm start   # production locally
 RSVP shape:
 
 ```ts
-{ id, name, status: 'yes' | 'no' | 'maybe', note?, createdAt }
+{ id, name, status: 'yes' | 'no', note?, createdAt }
 ```
 
 | Environment | Backend |
