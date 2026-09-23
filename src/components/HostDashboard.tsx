@@ -46,6 +46,7 @@ export function HostDashboard() {
   const [loggingIn, setLoggingIn] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [pendingRemove, setPendingRemove] = useState<Rsvp | null>(null);
 
   const load = useCallback(async () => {
     setState({ kind: "loading" });
@@ -80,6 +81,15 @@ export function HostDashboard() {
   useEffect(() => {
     void load();
   }, [load]);
+
+  useEffect(() => {
+    if (!pendingRemove) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !deletingId) setPendingRemove(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [pendingRemove, deletingId]);
 
   const counts = useMemo(() => {
     if (state.kind !== "ready") return { yes: 0, no: 0, total: 0 };
@@ -117,8 +127,14 @@ export function HostDashboard() {
     setState({ kind: "need-login" });
   }
 
-  async function onRemove(r: Rsvp) {
-    if (!window.confirm(`Remove ${r.name}?`)) return;
+  function askRemove(r: Rsvp) {
+    setDeleteError(null);
+    setPendingRemove(r);
+  }
+
+  async function confirmRemove() {
+    if (!pendingRemove) return;
+    const r = pendingRemove;
     setDeleteError(null);
     setDeletingId(r.id);
     try {
@@ -138,6 +154,7 @@ export function HostDashboard() {
           rsvps: prev.rsvps.filter((x) => x.id !== r.id),
         };
       });
+      setPendingRemove(null);
     } catch {
       setDeleteError("Network error removing RSVP.");
     } finally {
@@ -282,7 +299,7 @@ export function HostDashboard() {
                   <StatusBadge status={r.status} />
                   <button
                     type="button"
-                    onClick={() => void onRemove(r)}
+                    onClick={() => askRemove(r)}
                     disabled={deletingId === r.id}
                     className="min-h-9 rounded-lg border border-red-300 bg-white px-3 text-sm font-medium text-red-600 hover:bg-red-50 disabled:opacity-50"
                   >
@@ -299,6 +316,56 @@ export function HostDashboard() {
           ))}
         </ul>
       )}
+
+      {pendingRemove ? (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-green-950/40 p-4 sm:items-center"
+          role="presentation"
+          onClick={() => {
+            if (!deletingId) setPendingRemove(null);
+          }}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="remove-rsvp-title"
+            className="w-full max-w-sm rounded-2xl border border-green-200 bg-white p-5 shadow-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2
+              id="remove-rsvp-title"
+              className="text-lg font-bold tracking-tight text-green-950"
+            >
+              Remove RSVP?
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-green-800/80">
+              This will delete{" "}
+              <span className="font-semibold text-green-950">
+                {pendingRemove.name}
+              </span>{" "}
+              from the list. You can&apos;t undo this.
+            </p>
+            <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+              <button
+                type="button"
+                onClick={() => setPendingRemove(null)}
+                disabled={Boolean(deletingId)}
+                className="min-h-11 rounded-xl border border-green-300 bg-white px-4 text-sm font-medium text-green-900 hover:bg-green-50 disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => void confirmRemove()}
+                disabled={Boolean(deletingId)}
+                className="min-h-11 rounded-xl bg-red-600 px-4 text-sm font-bold text-white hover:bg-red-700 disabled:opacity-50"
+              >
+                {deletingId ? "Removing…" : "Remove"}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
