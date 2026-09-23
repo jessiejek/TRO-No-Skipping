@@ -1,6 +1,6 @@
 # TRO: No Skipping
 
-Mobile-first RSVP web app for **Rizza**’s pickleball birthday party (brand: TRO: No Skipping).
+Mobile-first RSVP web app for **Amor**’s pickleball birthday party (brand: TRO: No Skipping).
 
 **Stack:** Next.js (App Router) · TypeScript · Tailwind CSS v4 · optional [Vercel Blob](https://vercel.com/docs/storage/vercel-blob)
 
@@ -8,7 +8,7 @@ Mobile-first RSVP web app for **Rizza**’s pickleball birthday party (brand: TR
 
 | | |
 |---|---|
-| Celebrant | Rizza |
+| Celebrant | Amor |
 | Birthday | October 20 |
 | Party | Saturday, October 24, 2026 · 4:00 PM – 7:00 PM |
 | Venue | Prospin Davao |
