@@ -160,7 +160,7 @@ export function HostDashboard() {
           disabled={loggingIn || !password}
           className="min-h-12 w-full rounded-xl bg-green-600 text-base font-bold text-white disabled:opacity-50"
         >
-          {loggingIn ? "Unlocking…" : "Enter chambers"}
+          {loggingIn ? "Logging in…" : "Log in"}
         </button>
       </form>
     );

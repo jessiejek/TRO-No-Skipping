@@ -1,6 +1,6 @@
 # TRO: No Skipping
 
-Mobile-first RSVP web app for **Rizza**’s pickleball birthday party — a Temporary Restraining Order pun (“no skipping” serves).
+Mobile-first RSVP web app for **Rizza**’s pickleball birthday party (brand: TRO: No Skipping).
 
 **Stack:** Next.js (App Router) · TypeScript · Tailwind CSS v4 · optional [Vercel Blob](https://vercel.com/docs/storage/vercel-blob)
 
@@ -27,7 +27,7 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) for the invite / RSVP form.  
-Host docket: [http://localhost:3000/host](http://localhost:3000/host) (uses `HOST_PASSWORD`).
+Host: [http://localhost:3000/host](http://localhost:3000/host) (uses `HOST_PASSWORD`).
 
 ```bash
 npm run build && npm start   # production locally
@@ -61,7 +61,7 @@ APIs:
 
 ## UI notes
 
-- Dark court + neon lime pickleball vibe
+- Soft green court UI, pickleball birthday invite
 - Mobile-first: large tap targets, ≥16px inputs (no iOS zoom), safe-area insets, no horizontal scroll from 320px up
 
 ## Scripts

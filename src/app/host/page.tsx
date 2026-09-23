@@ -19,14 +19,14 @@ export default function HostPage() {
             ← Invite
           </Link>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-green-700">
-            Host docket
+            Host
           </p>
         </div>
       </header>
 
       <main className="safe-px safe-pb mx-auto w-full max-w-2xl flex-1 pb-10 pt-6">
         <h1 className="mb-2 text-2xl font-bold tracking-tight text-green-950 sm:text-3xl">
-          RSVP chambers
+          RSVPs
         </h1>
         <p className="mb-8 text-sm text-green-800/70">
           Private view of responses for {event.celebrant}&apos;s party. Password

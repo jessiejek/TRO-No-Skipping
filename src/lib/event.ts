@@ -10,12 +10,12 @@ export const event = {
   partyEndsAt: "2026-10-24T19:00:00+08:00",
   venue: "Prospin Davao",
   activity: "Pickleball birthday party",
-  headline: "You've been served.",
+  headline: "Rizza's birthday on the court.",
   subcopy:
-    "Court is in session at the pickleball court. Appearance is mandatory—unless you file a witty excuse.",
-  cta: "Submit your RSVP (no continuances)",
+    "You're invited to celebrate with pickleball, snacks, and friends. Come hang out — no pressure if you can't play.",
+  cta: "RSVP below",
   bringFood:
-    "Open kitchen clause: you're welcome to bring food to share — snacks, drinks, or whatever your crew loves.",
+    "You're welcome to bring food to share — snacks, drinks, or whatever your crew loves.",
 } as const;
 
 export type EventConfig = typeof event;

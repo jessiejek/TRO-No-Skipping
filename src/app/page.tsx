@@ -22,7 +22,7 @@ export default function HomePage() {
       <main className="safe-px safe-pb mx-auto flex w-full max-w-lg flex-1 flex-col gap-8 pb-10 pt-6">
         <section className="space-y-4">
           <p className="inline-flex items-center gap-2 rounded-full border border-green-300 bg-green-100 px-3 py-1.5 text-xs font-semibold text-green-800">
-            <span aria-hidden>🎾</span> Pickleball summons
+            <span aria-hidden>🎾</span> Pickleball birthday
           </p>
           <h1 className="text-balance text-3xl font-bold leading-tight tracking-tight text-green-950 sm:text-4xl">
             {event.headline}
@@ -41,11 +41,11 @@ export default function HomePage() {
               id="event-details"
               className="text-sm font-semibold uppercase tracking-wider text-green-800"
             >
-              Case file
+              Details
             </h2>
           </div>
           <dl className="divide-y divide-green-100">
-            <Detail label="Celebrant" value={`${event.celebrant} 🎂`} />
+            <Detail label="Celebrant" value={event.celebrant} />
             <Detail label="Birthday" value={event.birthday} />
             <Detail label="When" value={`${event.partyDate}`} />
             <Detail label="Time" value={event.partyTime} />
@@ -58,7 +58,7 @@ export default function HomePage() {
           className="rounded-2xl border border-green-300/70 bg-green-50 px-4 py-3.5 text-sm leading-relaxed text-green-900 sm:px-5"
           role="note"
         >
-          <p className="font-semibold text-green-950">Potluck permitted.</p>
+          <p className="font-semibold text-green-950">Bring food if you want</p>
           <p className="mt-1 text-green-800/85">{event.bringFood}</p>
         </aside>
 
@@ -78,8 +78,7 @@ export default function HomePage() {
 
         <footer className="pb-2 text-center text-xs text-green-700/50">
           <p>
-            {event.brandName} · temporary joy, permanent vibes · no skipping
-            serves
+            {event.brandName} · no skipping
           </p>
         </footer>
       </main>

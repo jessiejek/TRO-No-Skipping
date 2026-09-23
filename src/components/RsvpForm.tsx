@@ -4,9 +4,9 @@ import { useState } from "react";
 import type { RsvpStatus } from "@/lib/types";
 
 const STATUSES: { value: RsvpStatus; label: string; hint: string }[] = [
-  { value: "yes", label: "I'll appear", hint: "Serving ace energy" },
-  { value: "maybe", label: "Pending", hint: "Motion under advisement" },
-  { value: "no", label: "Can't make it", hint: "Filing a continuance" },
+  { value: "yes", label: "Yes", hint: "Looking forward to it" },
+  { value: "maybe", label: "Maybe", hint: "Not sure yet" },
+  { value: "no", label: "Can't make it", hint: "Won't make it" },
 ];
 
 function noteRequiredFor(status: RsvpStatus): boolean {
@@ -31,7 +31,7 @@ export function RsvpForm() {
     setError(null);
 
     if (!status) {
-      setError("Pick whether you'll appear — Pending, I'll appear, or Can't make it.");
+      setError("Please choose Yes, Maybe, or Can't make it.");
       return;
     }
 
@@ -39,8 +39,8 @@ export function RsvpForm() {
     if (noteRequired && !trimmedNote) {
       setError(
         status === "maybe"
-          ? "Pending RSVPs need a note — when will you know, or what's the hold-up?"
-          : "Can't-make-it RSVPs need a note — state your best legal excuse.",
+          ? "Maybe RSVPs need a short note — when will you know?"
+          : "Please leave a short note so we know you won't make it.",
       );
       return;
     }
@@ -83,17 +83,17 @@ export function RsvpForm() {
       >
         <p className="text-lg font-semibold text-green-900">
           {yes
-            ? "Appearance entered. ✅"
+            ? "Thanks — you're in! ✅"
             : maybe
-              ? "Motion taken under advisement. ✅"
-              : "Continuance noted. ✅"}
+              ? "Thanks — we've got your maybe. ✅"
+              : "Thanks for letting us know. ✅"}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-green-800/80">
           {yes
-            ? "Court is in session on the pickleball court. Bring your A-game, your best objections, and zero excuses."
+            ? "See you at the party. Wear shoes you can move in if you want to play."
             : maybe
-              ? "We've logged your pending status. File an amended appearance when you know."
-              : "Your absence is on the record. We'll miss you on the docket — and accept your excuse with prejudice."}
+              ? "Update us when you know — you can submit again anytime."
+              : "We'll miss you. Hope to catch you another time."}
         </p>
         <button
           type="button"
@@ -127,14 +127,14 @@ export function RsvpForm() {
           maxLength={80}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="How should the docket list you?"
+          placeholder="Your name"
           className="min-h-12 w-full rounded-xl border border-green-200 bg-green-50/50 px-4 text-base text-green-950 placeholder:text-green-700/35 outline-none transition focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-300/60"
         />
       </div>
 
       <fieldset>
         <legend className="mb-2 text-sm font-medium text-green-900">
-          Will you appear?
+          Will you be there?
         </legend>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
           {STATUSES.map((s) => {
@@ -183,10 +183,9 @@ export function RsvpForm() {
           className="rounded-xl border border-green-400/60 bg-green-100/70 px-4 py-3 text-sm leading-relaxed text-green-950"
           role="status"
         >
-          <p className="font-semibold">ORDERED: Appearance on the record.</p>
+          <p className="font-semibold">Quick tip</p>
           <p className="mt-1 text-green-900/80">
-            Guest shall appear ready to serve. Contempt of court = missing the
-            party. Bring your A-game and your best objections.
+            If you plan to play, bring comfortable shoes you can move in.
           </p>
         </div>
       ) : null}
@@ -213,10 +212,10 @@ export function RsvpForm() {
           onChange={(e) => setNote(e.target.value)}
           placeholder={
             status === "yes"
-              ? "Plus-ones, dietary needs, or a brief opening statement…"
+              ? "Plus-ones, dietary needs, or anything we should know…"
               : status === "maybe"
-                ? "When will you know? State your pending motion…"
-                : "State your best legal excuse for non-appearance…"
+                ? "When will you know?"
+                : "A short note is fine…"
           }
           className="w-full resize-y rounded-xl border border-green-200 bg-green-50/50 px-4 py-3 text-base text-green-950 placeholder:text-green-700/35 outline-none transition focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-300/60"
         />
@@ -241,7 +240,7 @@ export function RsvpForm() {
         }
         className="min-h-14 w-full rounded-xl bg-green-600 px-6 text-base font-bold text-white shadow-sm transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.98]"
       >
-        {submitting ? "Filing…" : "File RSVP"}
+        {submitting ? "Sending…" : "Submit RSVP"}
       </button>
     </form>
   );
