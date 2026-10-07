@@ -12,7 +12,7 @@ export const event = {
   bring: "Just yourself / A snack to share / Paddles if you have them",
   headline: "Amor's birthday on the court.",
   subcopy:
-    "You're invited for pickleball, snacks, and good company! Come fuel the fun on the court or chill on the sidelines. Zero pressure, just pure good times!",
+    "You're invited to play pickleball, enjoy snacks, and share good company! Come fuel the fun on the court or chill on the sidelines. Zero pressure, just pure good times!",
 } as const;
 
 export type EventConfig = typeof event;
