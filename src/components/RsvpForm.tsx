@@ -4,9 +4,9 @@ import Image from "next/image"; // JJQR - AI (Oct 7, 2026)
 import { useState } from "react";
 import type { RsvpStatus } from "@/lib/types";
 
-const STATUSES: { value: RsvpStatus; label: string }[] = [
-  { value: "yes", label: "Looking forward to it!" },
-  { value: "no", label: "No can’t make it" },
+const STATUSES: { value: RsvpStatus; label: string; hint: string }[] = [
+  { value: "yes", label: "Yes!", hint: "Looking forward to it!" },
+  { value: "no", label: "No.", hint: "Sorry, can’t make it." },
 ];
 
 function noteRequiredFor(status: RsvpStatus): boolean {
@@ -173,6 +173,14 @@ export function RsvpForm() {
                   <span>
                     <span className="block text-base font-semibold">
                       {s.label}
+                    </span>
+                    <span
+                      className={[
+                        "block text-xs",
+                        selected ? "text-green-800/70" : "text-green-700/45",
+                      ].join(" ")}
+                    >
+                      {s.hint}
                     </span>
                   </span>
                 </span>
