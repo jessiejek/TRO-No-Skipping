@@ -23,7 +23,7 @@ const siteTitle = `${event.celebrantShort}'s Pickleball Birthday`;
 const siteDescription = `${event.activity} for ${event.celebrant}. ${event.partyDate} at ${event.venue}.`;
 // JJQR - AI (Oct 7, 2026)
 const ogImage = {
-  url: "/og.png",
+  url: "/og-click.png",
   width: 1200,
   height: 630,
   alt: "Amor's Pickleball Birthday",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   title: siteTitle, // JJQR - AI (Oct 7, 2026)
   description: siteDescription, // JJQR - AI (Oct 7, 2026)
   applicationName: event.brandName,
-  // JJQR - AI (Oct 7, 2026) — static link-preview image at public/og.png.
+  // JJQR - AI (Oct 7, 2026) — static link-preview image at public/og-click.png.
   openGraph: {
     title: siteTitle,
     description: siteDescription,
