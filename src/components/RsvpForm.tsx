@@ -85,7 +85,7 @@ export function RsvpForm() {
         <p className="mt-2 text-sm leading-relaxed text-green-800/80">
           {yes
             ? "Let's go!"
-            : "We'll miss you. Hope to catch you another time."}
+            : "We'll miss you, but hope to catch up soon."}
         </p>
         {/* //JJQR - AI (Oct 7, 2026) */}
         {yes ? (
