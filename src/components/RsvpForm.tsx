@@ -90,18 +90,18 @@ export function RsvpForm() {
         {yes ? (
           <Image
             src="/rsvp-yes.jpeg"
-            alt="Happy tears"
-            width={328}
-            height={512}
+            alt="Yay!! See you there!!"
+            width={1179}
+            height={2096}
             loading="eager"
             className="mx-auto mt-4 h-auto w-full max-w-[240px] rounded-xl"
           />
         ) : (
           <Image
             src="/rsvp-no.jpeg"
-            alt="Crying"
-            width={327}
-            height={512}
+            alt="Oh no!!! Why"
+            width={1179}
+            height={2096}
             loading="eager"
             className="mx-auto mt-4 h-auto w-full max-w-[240px] rounded-xl"
           />
@@ -185,18 +185,18 @@ export function RsvpForm() {
       {/* //JJQR - AI (Oct 7, 2026) */}
       <Image
         src="/rsvp-yes.jpeg"
-        alt="Happy tears"
-        width={328}
-        height={512}
+        alt="Yay!! See you there!!"
+        width={1179}
+        height={2096}
         loading="eager"
         aria-hidden
         className="hidden"
       />
       <Image
         src="/rsvp-no.jpeg"
-        alt="Crying"
-        width={327}
-        height={512}
+        alt="Oh no!!! Why"
+        width={1179}
+        height={2096}
         loading="eager"
         aria-hidden
         className="hidden"
