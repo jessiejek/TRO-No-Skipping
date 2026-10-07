@@ -249,6 +249,7 @@ export function RsvpForm() {
         </p>
       ) : null}
 
+      {/* JJQR - AI (Oct 7, 2026) */}
       <button
         type="submit"
         disabled={
@@ -257,7 +258,7 @@ export function RsvpForm() {
           !status ||
           (noteRequired && !note.trim())
         }
-        className="min-h-14 w-full rounded-xl bg-green-600 px-6 text-base font-bold text-white shadow-sm transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.98]"
+        className="min-h-14 w-full rounded-full bg-green-600 px-6 text-base font-bold text-white shadow-sm transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.98]"
       >
         {submitting ? "Sending…" : "Submit RSVP"}
       </button>
