@@ -12,7 +12,7 @@ export const event = {
   activity: "Pickleball birthday party",
   headline: "Amor's birthday on the court.",
   subcopy:
-    "You're invited to celebrate with pickleball, snacks, and friends. Come hang out — no pressure if you can't play.",
+    "You're invited for pickleball, snacks, and good company! Come fuel the fun on the court or chill on the sidelines. Zero pressure, just pure good times!",
   cta: "RSVP below",
   bringFood:
     "You're welcome to bring food to share — snacks, drinks, or whatever your crew loves.",
