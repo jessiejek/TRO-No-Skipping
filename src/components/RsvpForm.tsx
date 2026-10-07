@@ -81,11 +81,11 @@ export function RsvpForm() {
             ? "Thanks — you're in! ✅"
             : "Thanks for letting us know. ✅"}
         </p>
-        <p className="mt-2 text-sm leading-relaxed text-green-800/80">
-          {yes
-            ? "See you at the party. Wear shoes you can move in if you want to play."
-            : "We'll miss you. Hope to catch you another time."}
-        </p>
+        {!yes ? (
+          <p className="mt-2 text-sm leading-relaxed text-green-800/80">
+            {"We'll miss you. Hope to catch you another time."}
+          </p>
+        ) : null}
         {/* //JJQR - AI (Oct 7, 2026) */}
         {yes ? (
           <Image
