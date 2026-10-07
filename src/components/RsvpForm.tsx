@@ -5,8 +5,8 @@ import { useState } from "react";
 import type { RsvpStatus } from "@/lib/types";
 
 const STATUSES: { value: RsvpStatus; label: string; hint: string }[] = [
-  { value: "yes", label: "Yes", hint: "Looking forward to it" },
-  { value: "no", label: "Can't make it", hint: "Won't make it" },
+  { value: "yes", label: "Looking forward to it!", hint: "Looking forward to it" },
+  { value: "no", label: "No can’t make it", hint: "Won't make it" },
 ];
 
 function noteRequiredFor(status: RsvpStatus): boolean {
@@ -187,18 +187,6 @@ export function RsvpForm() {
         className={`mx-auto h-auto w-full max-w-[240px] rounded-xl${status === "no" ? "" : " hidden"}`}
       />
       {/* //JJQR - END */}
-
-      {status === "yes" ? (
-        <div
-          className="rounded-xl border border-green-400/60 bg-green-100/70 px-4 py-3 text-sm leading-relaxed text-green-950"
-          role="status"
-        >
-          <p className="font-semibold">Quick tip</p>
-          <p className="mt-1 text-green-900/80">
-            If you plan to play, bring comfortable shoes you can move in.
-          </p>
-        </div>
-      ) : null}
 
       <div>
         <label
