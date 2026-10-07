@@ -170,23 +170,22 @@ export function RsvpForm() {
       </fieldset>
 
       {/* //JJQR - AI (Oct 7, 2026) */}
-      {status === "yes" ? (
-        <Image
-          src="/rsvp-yes.jpeg"
-          alt="Happy tears"
-          width={328}
-          height={512}
-          className="mx-auto h-auto w-full max-w-[240px] rounded-xl"
-        />
-      ) : status === "no" ? (
-        <Image
-          src="/rsvp-no.jpeg"
-          alt="Crying"
-          width={327}
-          height={512}
-          className="mx-auto h-auto w-full max-w-[240px] rounded-xl"
-        />
-      ) : null}
+      <Image
+        src="/rsvp-yes.jpeg"
+        alt="Happy tears"
+        width={328}
+        height={512}
+        loading="eager"
+        className={`mx-auto h-auto w-full max-w-[240px] rounded-xl${status === "yes" ? "" : " hidden"}`}
+      />
+      <Image
+        src="/rsvp-no.jpeg"
+        alt="Crying"
+        width={327}
+        height={512}
+        loading="eager"
+        className={`mx-auto h-auto w-full max-w-[240px] rounded-xl${status === "no" ? "" : " hidden"}`}
+      />
       {/* //JJQR - END */}
 
       {status === "yes" ? (
