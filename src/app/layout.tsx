@@ -13,11 +13,33 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// JJQR - AI (Oct 7, 2026) — absolute base so og:image / twitter:image URLs resolve for link previews.
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "https://amors-birthday-serve.vercel.app";
+
+// JJQR - AI (Oct 7, 2026)
+const siteTitle = `${event.celebrantShort}'s Pickleball Birthday`;
+const siteDescription = `${event.activity} for ${event.celebrant}. ${event.partyDate} at ${event.venue}.`;
+
 export const metadata: Metadata = {
   // JJQR - AI (Oct 7, 2026)
-  title: `${event.celebrantShort}'s Pickleball Birthday`,
-  description: `${event.activity} for ${event.celebrant}. ${event.partyDate} at ${event.venue}.`,
+  metadataBase: new URL(siteUrl), // JJQR - AI (Oct 7, 2026)
+  title: siteTitle, // JJQR - AI (Oct 7, 2026)
+  description: siteDescription, // JJQR - AI (Oct 7, 2026)
   applicationName: event.brandName,
+  // JJQR - AI (Oct 7, 2026) — images come from app/opengraph-image.tsx & app/twitter-image.tsx.
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    siteName: event.brandName,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+  },
 };
 
 export const viewport: Viewport = {
