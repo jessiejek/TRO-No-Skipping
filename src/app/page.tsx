@@ -72,7 +72,7 @@ export default function HomePage() {
               {event.headline}
             </h1>
             {/* JJQR - AI (Oct 7, 2026) */}
-            <p className="text-pretty text-base leading-relaxed text-white/85 sm:text-lg">
+            <p className="text-justify hyphens-auto text-base leading-relaxed text-white/85 sm:text-lg">
               {event.subcopy}
             </p>
           </section>
@@ -113,12 +113,6 @@ export default function HomePage() {
           </h2>
           <RsvpForm />
         </section>
-
-        <footer className="pb-2 text-center text-xs text-green-700/50">
-          <p>
-            {event.brandName} · no skipping
-          </p>
-        </footer>
       </main>
     </div>
   );
