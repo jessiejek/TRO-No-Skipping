@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${event.brandName} — ${event.celebrant}'s birthday`,
+  // JJQR - AI (Oct 7, 2026)
+  title: `${event.celebrantShort}'s Pickleball Birthday`,
   description: `${event.activity} for ${event.celebrant}. ${event.partyDate} at ${event.venue}.`,
   applicationName: event.brandName,
 };
