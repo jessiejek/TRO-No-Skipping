@@ -57,11 +57,13 @@ export default function HomePage() {
                   stroke="#1E3932"
                   strokeWidth="0.6"
                 />
-                <circle cx="18" cy="17.2" r="0.6" fill="#1E3932" />
-                <circle cx="20.4" cy="17" r="0.6" fill="#1E3932" />
-                <circle cx="19.2" cy="19" r="0.6" fill="#1E3932" />
-                <circle cx="17.9" cy="19.9" r="0.6" fill="#1E3932" />
-                <circle cx="20.7" cy="19.7" r="0.6" fill="#1E3932" />
+                <circle cx="19.3" cy="18.3" r="0.5" fill="#1E3932" />
+                <circle cx="21.5" cy="18.3" r="0.5" fill="#1E3932" />
+                <circle cx="20.4" cy="20.2" r="0.5" fill="#1E3932" />
+                <circle cx="18.2" cy="20.2" r="0.5" fill="#1E3932" />
+                <circle cx="17.1" cy="18.3" r="0.5" fill="#1E3932" />
+                <circle cx="18.2" cy="16.4" r="0.5" fill="#1E3932" />
+                <circle cx="20.4" cy="16.4" r="0.5" fill="#1E3932" />
               </svg>
               {" "}Pickleball Birthday
             </p>
