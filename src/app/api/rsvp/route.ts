@@ -17,7 +17,17 @@ export async function GET() {
     );
   }
 
-  const rsvps = await getAllRsvps();
+  // JJQR - AI (Oct 7, 2026): a failed read now throws; answer with JSON, not a crash page.
+  let rsvps;
+  try {
+    rsvps = await getAllRsvps();
+  } catch (err) {
+    console.error("RSVP load failed:", err);
+    return NextResponse.json(
+      { error: "Could not load RSVPs. Try again." },
+      { status: 500 },
+    );
+  }
   return NextResponse.json({
     rsvps,
     storage: storageMode(),

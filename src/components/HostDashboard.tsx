@@ -232,7 +232,15 @@ export function HostDashboard() {
           Storage:{" "}
           <span className="font-mono text-green-700">{state.storage}</span>
         </p>
-        <div className="flex gap-2">
+        {/* JJQR - AI (Oct 7, 2026): wrap on small screens + host-only backup download */}
+        <div className="flex flex-wrap gap-2">
+          <a
+            href="/api/host/backup?format=csv"
+            download
+            className="inline-flex min-h-11 items-center rounded-xl border border-green-300 bg-white px-4 text-sm font-medium text-green-900 hover:bg-green-50"
+          >
+            Download backup (CSV)
+          </a>
           <button
             type="button"
             onClick={() => void load()}
