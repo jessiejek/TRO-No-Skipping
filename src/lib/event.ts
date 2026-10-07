@@ -8,7 +8,7 @@ export const event = {
   /** ISO for countdown / calendar helpers */
   partyStartsAt: "2026-10-24T16:00:00+08:00",
   partyEndsAt: "2026-10-24T19:00:00+08:00",
-  venue: "Prospin Davao",
+  venue: "Prospin Sports Center, 555 Kamuning Street Juna Subdivision, Davao City, Philippines, 8000",
   activity: "Pickleball birthday party",
   headline: "Amor's birthday on the court.",
   subcopy:
