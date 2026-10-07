@@ -1,6 +1,5 @@
 // JJQR - AI (Oct 7, 2026)
-// Shared pickleball artwork for next/og ImageResponse (icon, apple-icon, OG/Twitter images).
-// Satori-friendly: flex layout + absolute positioning only.
+// Shared flat pickleball artwork for next/og ImageResponse (icon, apple-icon, OG/Twitter images).
 
 type Hole = { x: number; y: number; d: number };
 
@@ -12,11 +11,11 @@ function ring(count: number, radius: number, d: number, offsetDeg = 0): Hole[] {
   });
 }
 
-// JJQR - AI (Oct 7, 2026) — detailed layout for large renders, chunky layout for tiny favicons.
+// JJQR - AI (Oct 7, 2026) — few flat holes; chunkier layout for tiny favicons.
 const DETAILED_HOLES: Hole[] = [
   { x: 0.5, y: 0.5, d: 0.1 },
-  ...ring(6, 0.22, 0.095, 0),
-  ...ring(10, 0.385, 0.085, 18),
+  ...ring(6, 0.24, 0.1, -90),
+  ...ring(8, 0.39, 0.085, -67.5),
 ];
 
 const SIMPLE_HOLES: Hole[] = [
@@ -26,11 +25,10 @@ const SIMPLE_HOLES: Hole[] = [
 
 export const courtColors = {
   // JJQR - AI (Oct 7, 2026) — matches globals.css green palette + themeColor.
-  courtDark: "#1E3932",
   court: "#006241",
-  courtLight: "#00754A",
   mint: "#86efac",
-  line: "rgba(255, 255, 255, 0.85)",
+  ball: "#d4f02f",
+  hole: "#a3bf1a",
 };
 
 export function Pickleball({
@@ -40,7 +38,7 @@ export function Pickleball({
   size: number;
   simple?: boolean;
 }) {
-  // JJQR - AI (Oct 7, 2026)
+  // JJQR - AI (Oct 7, 2026) — flat: solid lime circle, solid darker holes, no shine/shadow.
   const holes = simple ? SIMPLE_HOLES : DETAILED_HOLES;
   return (
     <div
@@ -50,10 +48,7 @@ export function Pickleball({
         width: size,
         height: size,
         borderRadius: "50%",
-        backgroundColor: "#d4f02f",
-        backgroundImage:
-          "radial-gradient(circle at 35% 30%, #f7ffc2 0%, #dcf53f 32%, #b7d81e 72%, #8fb012 100%)",
-        boxShadow: simple ? "none" : `0 ${Math.round(size * 0.05)}px ${Math.round(size * 0.1)}px rgba(0,0,0,0.28)`,
+        backgroundColor: courtColors.ball,
       }}
     >
       {holes.map((h, i) => {
@@ -69,9 +64,7 @@ export function Pickleball({
               width: d,
               height: d,
               borderRadius: "50%",
-              backgroundColor: "#6f8c0c",
-              backgroundImage:
-                "radial-gradient(circle at 60% 65%, #9cbc1c 0%, #7a990f 45%, #556d06 100%)",
+              backgroundColor: courtColors.hole,
             }}
           />
         );
