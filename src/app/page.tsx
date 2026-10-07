@@ -49,7 +49,7 @@ export default function HomePage() {
             <Detail label="When" value={`${event.partyDate}`} />
             <Detail label="Time" value={event.partyTime} />
             <Detail label="Where" value={event.venue} />
-            <Detail label="Bring" value={event.bring} />
+            <Detail label="Bring (optional)" value={event.bring} />
           </dl>
         </section>
 
