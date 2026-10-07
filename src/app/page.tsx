@@ -46,11 +46,10 @@ export default function HomePage() {
           </div>
           <dl className="divide-y divide-green-100">
             <Detail label="Celebrant" value={event.celebrant} />
-            <Detail label="Birthday" value={event.birthday} />
             <Detail label="When" value={`${event.partyDate}`} />
             <Detail label="Time" value={event.partyTime} />
             <Detail label="Where" value={event.venue} />
-            <Detail label="Activity" value={event.activity} />
+            <Detail label="Bring" value={event.bring} />
           </dl>
         </section>
 
