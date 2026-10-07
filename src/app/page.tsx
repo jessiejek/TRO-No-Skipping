@@ -22,7 +22,7 @@ export default function HomePage() {
       <main className="safe-px safe-pb mx-auto flex w-full max-w-lg flex-1 flex-col gap-8 pb-10 pt-6">
         <section className="space-y-4">
           <p className="inline-flex items-center gap-2 rounded-full border border-green-300 bg-green-100 px-3 py-1.5 text-xs font-semibold text-green-800">
-            <span aria-hidden>🎾</span> Pickleball birthday
+            <span aria-hidden>🎾</span> Pickleball Birthday
           </p>
           <h1 className="text-balance text-3xl font-bold leading-tight tracking-tight text-green-950 sm:text-4xl">
             {event.headline}
