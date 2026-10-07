@@ -3,7 +3,7 @@ import { event } from "@/lib/event";
 import { HostDashboard } from "@/components/HostDashboard";
 
 export const metadata = {
-  title: `Host — ${event.brandName}`,
+  title: `${event.celebrantShort}'s Pickleball Birthday`, // JJQR - AI (Oct 7, 2026)
   robots: { index: false, follow: false },
 };
 
