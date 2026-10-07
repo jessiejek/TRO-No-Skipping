@@ -21,6 +21,13 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
 // JJQR - AI (Oct 7, 2026)
 const siteTitle = `${event.celebrantShort}'s Pickleball Birthday`;
 const siteDescription = `${event.activity} for ${event.celebrant}. ${event.partyDate} at ${event.venue}.`;
+// JJQR - AI (Oct 7, 2026)
+const ogImage = {
+  url: "/og.png",
+  width: 1200,
+  height: 630,
+  alt: "Amor's Pickleball Birthday",
+};
 
 export const metadata: Metadata = {
   // JJQR - AI (Oct 7, 2026)
@@ -28,17 +35,19 @@ export const metadata: Metadata = {
   title: siteTitle, // JJQR - AI (Oct 7, 2026)
   description: siteDescription, // JJQR - AI (Oct 7, 2026)
   applicationName: event.brandName,
-  // JJQR - AI (Oct 7, 2026) — images come from app/opengraph-image.tsx & app/twitter-image.tsx.
+  // JJQR - AI (Oct 7, 2026) — static link-preview image at public/og.png.
   openGraph: {
     title: siteTitle,
     description: siteDescription,
     siteName: event.brandName,
     type: "website",
+    images: [ogImage], // JJQR - AI (Oct 7, 2026)
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
+    images: [ogImage], // JJQR - AI (Oct 7, 2026)
   },
 };
 
