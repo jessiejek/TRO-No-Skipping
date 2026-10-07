@@ -8,11 +8,7 @@ export default function HomePage() {
       {/* JJQR - AI (Oct 7, 2026) */}
       <div className="bg-[#1E3932] pb-10">
         <header className="safe-pt safe-px mx-auto w-full max-w-lg pt-4">
-          <div className="flex items-center justify-between gap-3">
-            {/* JJQR - AI (Oct 7, 2026) */}
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
-              {event.brandName}
-            </p>
+          <div className="flex items-center justify-end gap-3">
             {/* JJQR - AI (Oct 7, 2026) */}
             <Link
               href="/host"
@@ -26,8 +22,48 @@ export default function HomePage() {
         <div className="safe-px mx-auto w-full max-w-lg pt-8">
           <section className="space-y-4">
             {/* JJQR - AI (Oct 7, 2026) */}
-            <p className="inline-flex items-center gap-2 rounded-full bg-[#CBA258] px-3 py-1.5 text-xs font-semibold text-[#1E3932]">
-              <span aria-hidden>🎾</span> Pickleball Birthday
+            <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-base font-bold text-[#1E3932]">
+              <svg aria-hidden viewBox="0 0 24 24" className="h-7 w-7">
+                <g transform="rotate(-30 10 12)">
+                  <rect
+                    x="4"
+                    y="1"
+                    width="12"
+                    height="14"
+                    rx="4"
+                    fill="#CBA258"
+                    stroke="#1E3932"
+                    strokeWidth="1"
+                  />
+                  <rect
+                    x="8.25"
+                    y="14.5"
+                    width="3.5"
+                    height="7.5"
+                    rx="1.2"
+                    fill="#1E3932"
+                  />
+                  <path
+                    d="M8.25 17h3.5M8.25 19h3.5"
+                    stroke="#ffffff"
+                    strokeWidth="0.5"
+                  />
+                </g>
+                <circle
+                  cx="19.3"
+                  cy="18.3"
+                  r="3.9"
+                  fill="#E3F22B"
+                  stroke="#1E3932"
+                  strokeWidth="0.6"
+                />
+                <circle cx="18" cy="17.2" r="0.6" fill="#1E3932" />
+                <circle cx="20.4" cy="17" r="0.6" fill="#1E3932" />
+                <circle cx="19.2" cy="19" r="0.6" fill="#1E3932" />
+                <circle cx="17.9" cy="19.9" r="0.6" fill="#1E3932" />
+                <circle cx="20.7" cy="19.7" r="0.6" fill="#1E3932" />
+              </svg>
+              {" "}Pickleball Birthday
             </p>
             {/* JJQR - AI (Oct 7, 2026) */}
             <h1 className="text-balance text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
