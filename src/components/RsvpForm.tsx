@@ -107,6 +107,19 @@ export function RsvpForm() {
             className="mx-auto mt-4 h-auto w-full max-w-[240px] rounded-xl"
           />
         )}
+        {/* JJQR - AI (Oct 7, 2026) */}
+        {yes && (
+          <div className="mt-4 rounded-xl border border-green-300 bg-white p-4 text-sm leading-relaxed text-justify hyphens-auto">
+            <p className="font-semibold text-green-900">
+              Want to bring a snack or drink? Pick an item that starts with any
+              letter of my initials — R, A, L, or C!
+            </p>
+            <p className="mt-2 text-green-800/80">
+              Completely optional but would appreciate it! 🫶
+            </p>
+          </div>
+        )}
+        {/* //JJQR - AI (Oct 7, 2026) */}
         {/* //JJQR - END */}
         <button
           type="button"
