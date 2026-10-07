@@ -86,6 +86,27 @@ export function RsvpForm() {
             ? "See you at the party. Wear shoes you can move in if you want to play."
             : "We'll miss you. Hope to catch you another time."}
         </p>
+        {/* //JJQR - AI (Oct 7, 2026) */}
+        {yes ? (
+          <Image
+            src="/rsvp-yes.jpeg"
+            alt="Happy tears"
+            width={328}
+            height={512}
+            loading="eager"
+            className="mx-auto mt-4 h-auto w-full max-w-[240px] rounded-xl"
+          />
+        ) : (
+          <Image
+            src="/rsvp-no.jpeg"
+            alt="Crying"
+            width={327}
+            height={512}
+            loading="eager"
+            className="mx-auto mt-4 h-auto w-full max-w-[240px] rounded-xl"
+          />
+        )}
+        {/* //JJQR - END */}
         <button
           type="button"
           onClick={() => {
@@ -168,7 +189,8 @@ export function RsvpForm() {
         width={328}
         height={512}
         loading="eager"
-        className={`mx-auto h-auto w-full max-w-[240px] rounded-xl${status === "yes" ? "" : " hidden"}`}
+        aria-hidden
+        className="hidden"
       />
       <Image
         src="/rsvp-no.jpeg"
@@ -176,7 +198,8 @@ export function RsvpForm() {
         width={327}
         height={512}
         loading="eager"
-        className={`mx-auto h-auto w-full max-w-[240px] rounded-xl${status === "no" ? "" : " hidden"}`}
+        aria-hidden
+        className="hidden"
       />
       {/* //JJQR - END */}
 
